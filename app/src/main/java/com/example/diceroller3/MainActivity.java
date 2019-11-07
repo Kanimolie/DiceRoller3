@@ -1,5 +1,6 @@
 package com.example.diceroller3;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,6 +25,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> arrayQuestions = new ArrayList<>();
+    TextView points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,5 +82,29 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.questionTextView);
         tv.setText(question);
     }
+
+    @SuppressLint("WrongViewCast")
+    public void rollthedice(View view) {
+        Random rand = new Random();
+        int number = rand.nextInt (6);
+
+
+        EditText input;
+        input = (EditText) findViewById(R.id.textView2);
+        int inputnum = Integer.parseInt(input.getText().toString());
+        if (inputnum < 1 || inputnum > 6 ){
+            Toast.makeText(this,"Error, re-enter the value!", Toast.LENGTH_SHORT).show();
+        }
+        else if (inputnum == number){
+            Toast.makeText(this,"Congratulations!", Toast.LENGTH_SHORT).show();
+            int newPoints = Integer.parseInt(points.getText().toString());
+            newPoints = newPoints + 1;
+            points.setText(String.valueOf(newPoints));
+
+        }
+    }
 }
+
+
+
 
